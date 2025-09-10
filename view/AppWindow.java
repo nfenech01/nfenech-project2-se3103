@@ -10,6 +10,7 @@ public class AppWindow extends JFrame {
     public void init() {
 
         var cp = getContentPane();
+        canvas = new AppCanvas();
         cp.add(canvas, BorderLayout.CENTER);
         
     }

@@ -9,6 +9,8 @@ public class App {
 
     public static void main(String[] args) {
         win.init();
+        win.setTitle("Number Guessing Game");
+        win.setLocation(300, 200);
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         win.pack();
