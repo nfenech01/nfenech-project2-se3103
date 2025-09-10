@@ -59,7 +59,6 @@ public class NumberGuessGame {
             progressMessage = "Too low!";
         } else if (diff == 0) {
             progressMessage = "Correct! Key was " + key + ".";
-            state = GameState.WON;
         } else {
             progressMessage = "Too high!";
         }
