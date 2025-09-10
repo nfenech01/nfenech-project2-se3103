@@ -52,6 +52,7 @@ public class NumberGuessGame {
         }
     }
 
+    // Handles the High/Low strategy logic
     private void playHighLow(int guess) {
         this.guess = guess;
         int diff = guess - key;
@@ -65,6 +66,14 @@ public class NumberGuessGame {
     }
 
     private void playCloserAway(int guess) {
+        int prevDiff = Math.abs(key - this.guess);
+        int newDiff = Math.abs(key - guess);
+        this.guess = guess;
+        if (newDiff - prevDiff < 0) {
+            progressMessage = "Getting warmer!";
+        } else {
+            progressMessage = "Getting colder!";
+        }
 
     }
 
@@ -81,11 +90,11 @@ public class NumberGuessGame {
         this.strategy = strategy;
     }
 
-    public GameState getGameState() {
+    public GameState getState() {
         return state;
     }
 
-    public void setGameState(GameState state) {
+    public void setState(GameState state) {
         this.state = state;
     }
 

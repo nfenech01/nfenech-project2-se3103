@@ -1,7 +1,10 @@
 package view;
 
 import controller.App;
+import controller.NewGameButtonListener;
 import controller.NumberEnterListener;
+import controller.ShowKeyButtonListener;
+import controller.StrategySelectionListener;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
@@ -50,7 +53,7 @@ public class AppWindow extends JFrame {
         numberPanel.add(numberField);
         numberField.addActionListener(new NumberEnterListener());
 
-        // Creates the Strategy Panel
+        // Creates the Strategy Panel & buttons
         JPanel strategyPanel = new JPanel();
         strategyPanel.setBorder(new TitledBorder("Select Strategy"));
         highLowButton = new JRadioButton(highLowAction,
@@ -62,6 +65,9 @@ public class AppWindow extends JFrame {
         strategyPanel.add(highLowButton);
         strategyPanel.add(closerAwayButton);
         southPanel.add(strategyPanel);
+        StrategySelectionListener ssl = new StrategySelectionListener();
+        highLowButton.addActionListener(ssl);
+        closerAwayButton.addActionListener(ssl);
 
         // Group the radio buttons for selection exclusivity
         ButtonGroup strategy = new ButtonGroup();
@@ -72,11 +78,43 @@ public class AppWindow extends JFrame {
         JPanel actionPanel = new JPanel();
         southPanel.add(actionPanel);
         showKeyButton = new JCheckBox("Show Key");
+        showKeyButton.addItemListener(new ShowKeyButtonListener());
         newGameButton = new JButton("New Game");
+        newGameButton.addActionListener(new NewGameButtonListener());
         exitButton = new JButton("Exit");
+        // Various options for implementing the exit button action
+        // exitButton.addActionListener(new ExitButtonListener());
+        // exitButton.addActionListener((e) -> {
+        //     System.exit(0);
+        // });
+        exitButton.addActionListener(e -> System.exit(0));
         actionPanel.add(showKeyButton);
         actionPanel.add(newGameButton);
         actionPanel.add(exitButton);
+
+        updateWindow();
+
+    }
+
+    public void updateWindow() {
+        switch (App.game.getState()) {
+            case INIT:
+            case OVER:
+            newGameButton.setEnabled(true);
+            numberField.setEnabled(false);
+            highLowButton.setEnabled(true);
+            closerAwayButton.setEnabled(true);
+            showKeyButton.setEnabled(true);
+            break;
+            case PLAYING:
+            newGameButton.setEnabled(false);
+            numberField.setEnabled(true);
+            highLowButton.setEnabled(false);
+            closerAwayButton.setEnabled(false);
+            break;
+        }
+
+        canvas.repaint();
 
     }
     
