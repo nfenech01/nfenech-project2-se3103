@@ -17,21 +17,26 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import model.PlayStrategy;
+import view.statePattern.GameState;
+import view.statePattern.GameStateInit;
 
 public class AppWindow extends JFrame {
 
     public static final String highLowAction = "High/Low";
     public static final String closerAwayAction = "Close/Far";
 
-    private AppCanvas canvas;
+    public AppCanvas canvas;
 
-    private JTextField numberField;
-    private JRadioButton highLowButton;
-    private JRadioButton closerAwayButton;
+    public JTextField numberField;
+    public JRadioButton highLowButton;
+    public JRadioButton closerAwayButton;
 
-    private JCheckBox showKeyButton;
-    private JButton newGameButton;
-    private JButton exitButton;
+    public JCheckBox showKeyButton;
+    public JButton newGameButton;
+    public JButton exitButton;
+
+    private GameState state = new GameStateInit();
+
 
     public void init() {
 
@@ -93,27 +98,22 @@ public class AppWindow extends JFrame {
         actionPanel.add(exitButton);
 
         updateWindow();
+    }
 
+    public void goNext() {
+        state.goNext(this);
+    }
+
+    public GameState getGameState() {
+        return state;
+    }
+
+    public void setGameState(GameState state) {
+        this.state = state;
     }
 
     public void updateWindow() {
-        switch (App.game.getState()) {
-            case INIT:
-            case OVER:
-            newGameButton.setEnabled(true);
-            numberField.setEnabled(false);
-            highLowButton.setEnabled(true);
-            closerAwayButton.setEnabled(true);
-            showKeyButton.setEnabled(true);
-            break;
-            case PLAYING:
-            newGameButton.setEnabled(false);
-            numberField.setEnabled(true);
-            highLowButton.setEnabled(false);
-            closerAwayButton.setEnabled(false);
-            break;
-        }
-
+        state.updateWindow();
         canvas.repaint();
 
     }

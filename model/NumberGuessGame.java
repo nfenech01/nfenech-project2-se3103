@@ -10,7 +10,6 @@ public class NumberGuessGame {
     private int guess;
     private boolean showKeyOn;
     private int attempts;
-    private GameState state;
     private PlayStrategy strategy;
     public String progressMessage;
 
@@ -20,7 +19,6 @@ public class NumberGuessGame {
         guess = -1; 
         showKeyOn = false;
         attempts = 0;
-        state = GameState.INIT;
         strategy = PlayStrategy.HighLow;
     }
 
@@ -70,9 +68,9 @@ public class NumberGuessGame {
         int newDiff = Math.abs(key - guess);
         this.guess = guess;
         if (newDiff - prevDiff < 0) {
-            progressMessage = "Getting warmer!";
+            progressMessage = "Getting closer!";
         } else {
-            progressMessage = "Getting colder!";
+            progressMessage = "Getting farther!";
         }
 
     }
@@ -88,14 +86,6 @@ public class NumberGuessGame {
 
     public void setStrategy(PlayStrategy strategy) {
         this.strategy = strategy;
-    }
-
-    public GameState getState() {
-        return state;
-    }
-
-    public void setState(GameState state) {
-        this.state = state;
     }
 
     public boolean isShowKeyOn() {
