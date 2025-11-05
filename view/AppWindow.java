@@ -16,7 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-import model.PlayStrategy;
+import model.strategyPattern.CloseFar;
+import model.strategyPattern.HighLow;
 import view.statePattern.GameState;
 import view.statePattern.GameStateInit;
 
@@ -62,10 +63,10 @@ public class AppWindow extends JFrame {
         JPanel strategyPanel = new JPanel();
         strategyPanel.setBorder(new TitledBorder("Select Strategy"));
         highLowButton = new JRadioButton(highLowAction,
-            App.game.getStrategy() == PlayStrategy.HighLow
+            App.game.getStrategy() instanceof HighLow
         );
         closerAwayButton = new JRadioButton(closerAwayAction,
-            App.game.getStrategy() == PlayStrategy.CloserAway
+            App.game.getStrategy() instanceof CloseFar
         );
         strategyPanel.add(highLowButton);
         strategyPanel.add(closerAwayButton);

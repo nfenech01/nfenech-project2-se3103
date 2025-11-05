@@ -2,7 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import model.PlayStrategy;
+import model.strategyPattern.CloseFar;
+import model.strategyPattern.HighLow;
 import view.AppWindow;
 
 public class StrategySelectionListener implements ActionListener {
@@ -13,10 +14,10 @@ public class StrategySelectionListener implements ActionListener {
         String action = e.getActionCommand();
         switch (action) {
             case AppWindow.highLowAction:
-                App.game.setStrategy(PlayStrategy.HighLow);
+                App.game.setStrategy(new HighLow(App.game));
                 break;
             case AppWindow.closerAwayAction:
-                App.game.setStrategy(PlayStrategy.CloserAway);
+                App.game.setStrategy(new CloseFar(App.game));
                 break;
         }
 

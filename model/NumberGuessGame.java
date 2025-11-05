@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Random;
+import model.strategyPattern.HighLow;
+import model.strategyPattern.PlayStrategy;
 
 public class NumberGuessGame {
 
@@ -19,7 +21,7 @@ public class NumberGuessGame {
         guess = -1; 
         showKeyOn = false;
         attempts = 0;
-        strategy = PlayStrategy.HighLow;
+        setStrategy(new HighLow(this));
     }
 
     // Starts a new game by generating a new key and resetting variables
@@ -43,36 +45,7 @@ public class NumberGuessGame {
     // Main game logic that processes the player's guess based on the selected strategy
     public void play(int guess) {
         ++attempts;
-        if (strategy == PlayStrategy.HighLow) {
-            playHighLow(guess);
-        } else if (strategy == PlayStrategy.CloserAway) {
-            playCloserAway(guess);
-        }
-    }
-
-    // Handles the High/Low strategy logic
-    private void playHighLow(int guess) {
-        this.guess = guess;
-        int diff = guess - key;
-        if (diff < 0) {
-            progressMessage = "Too low!";
-        } else if (diff == 0) {
-            progressMessage = "Correct! Key was " + key + ".";
-        } else {
-            progressMessage = "Too high!";
-        }
-    }
-
-    private void playCloserAway(int guess) {
-        int prevDiff = Math.abs(key - this.guess);
-        int newDiff = Math.abs(key - guess);
-        this.guess = guess;
-        if (newDiff - prevDiff < 0) {
-            progressMessage = "Getting closer!";
-        } else {
-            progressMessage = "Getting farther!";
-        }
-
+        strategy.play(guess);
     }
 
     // Basic Getter and Setter methods
