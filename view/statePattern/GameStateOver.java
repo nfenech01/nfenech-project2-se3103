@@ -17,7 +17,7 @@ public class GameStateOver implements GameState {
         App.win.numberField.setEnabled(false);
         App.win.highLowButton.setEnabled(true);
         App.win.closerAwayButton.setEnabled(true);
-        App.win.showKeyButton.setEnabled(true);
+        App.win.showKeyButton.setEnabled(false);
         App.win.canvas.repaint();
     }
 

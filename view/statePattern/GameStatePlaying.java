@@ -18,6 +18,7 @@ public class GameStatePlaying implements GameState {
         App.win.numberField.setEnabled(true);
         App.win.highLowButton.setEnabled(false);
         App.win.closerAwayButton.setEnabled(false);
+        App.win.showKeyButton.setEnabled(true);
         App.win.canvas.repaint();
     }
 
